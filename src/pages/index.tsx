@@ -4,7 +4,7 @@ import Head from "next/head";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const { data: posts } = api.post.getAll.useQuery();
+  const { data: posts, isLoading } = api.post.getAll.useQuery();
 
   const user = useUser();
 
@@ -20,11 +20,14 @@ export default function Home() {
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
           </h1>
-          <p className="text-2xl text-white">
-            {
-              posts?.map(post => <p className="text-white">{post.title}</p>)
-            }
-          </p>
+          {isLoading ? (
+            <p>Loading posts ....</p>
+          ) : (
+            <p className="text-2xl text-white">
+              {posts?.map((post) => <p className="text-white">{post.title}</p>)}
+            </p>
+          )}
+
           <p className="text-white">current user: {user.user?.firstName}</p>
         </div>
       </main>
