@@ -4,7 +4,7 @@ import Head from "next/head";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const hello = api.post.hello.useQuery({ text: "from tRPC" });
+  const { data: posts } = api.post.getAll.useQuery();
 
   const user = useUser();
 
@@ -21,7 +21,9 @@ export default function Home() {
             Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
           </h1>
           <p className="text-2xl text-white">
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
+            {
+              posts?.map(post => <p className="text-white">{post.title}</p>)
+            }
           </p>
           <p className="text-white">current user: {user.user?.firstName}</p>
         </div>
