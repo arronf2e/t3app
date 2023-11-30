@@ -32,9 +32,15 @@ Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/ver
 - clerk for auth
 - axiom for log
 
+## prepare
 
-## db init
+- create .env file
+- comfirm env config
+
+## start dev
 
 ```bash
+pnpm install
 pnpm run db:push
+pnpm run dev
 ```
